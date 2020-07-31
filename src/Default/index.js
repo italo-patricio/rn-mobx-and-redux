@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, SafeAreaView, StyleSheet} from 'react-native';
+import {Text, View, SafeAreaView, StyleSheet, Alert} from 'react-native';
 import Counter from '../shared/component';
 
 export default class DefaultState extends Component {
@@ -12,6 +12,7 @@ export default class DefaultState extends Component {
   decrement = () => this.setState({count: this.state.count - 1});
 
   render() {
+    Alert.alert('renderizou!');
     return (
       <>
         <SafeAreaView>

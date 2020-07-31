@@ -1,23 +1,48 @@
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import DefaultState from './Default';
 import Mobx from './Mobx';
 import Redux from './Redux';
+import {RouteDefaultState, RouteMobx, RouteRedux} from './shared/routenames';
+import {Text} from 'react-native';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="DefaultState">
-      <Stack.Screen
-        name="DefaultState"
+    <Tab.Navigator initialRouteName={RouteDefaultState}>
+      <Tab.Screen
+        name={RouteDefaultState}
         component={DefaultState}
-        options={{title: 'Modo padrão com State'}}
+        options={{
+          title: '',
+          tabBarIcon: ({color, size}) => (
+            <Text style={{color, fontSize: size}}>State</Text>
+          ),
+        }}
       />
-      <Stack.Screen name="Mobx" component={Mobx} />
-      <Stack.Screen name="Redux" component={Redux} />
-    </Stack.Navigator>
+      <Tab.Screen
+        name={RouteMobx}
+        component={Mobx}
+        options={{
+          title: '',
+          tabBarIcon: ({color, size}) => (
+            <Text style={{color, fontSize: size}}>Mobx</Text>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={RouteRedux}
+        component={Redux}
+        options={{
+          title: '',
+          tabBarIcon: ({color, size}) => (
+            <Text style={{color, fontSize: size}}>Redux</Text>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   </NavigationContainer>
 );
 
