@@ -15,13 +15,11 @@ export default class DefaultState extends Component {
     Alert.alert('renderizou!');
     return (
       <>
-        <SafeAreaView>
-          <View style={styles.container}>
-            <Counter increment={this.increment} decrement={this.decrement}>
-              <Text>{this.state.count}</Text>
-            </Counter>
-          </View>
-        </SafeAreaView>
+        <View style={styles.container}>
+          <Counter increment={this.increment} decrement={this.decrement}>
+            <Text>{this.state.count}</Text>
+          </Counter>
+        </View>
       </>
     );
   }
