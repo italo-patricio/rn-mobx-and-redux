@@ -1,29 +1,29 @@
-import React, {Component} from 'react';
-import {Text, View, SafeAreaView, StyleSheet, Alert} from 'react-native';
+import React, {useState} from 'react';
+import {Text, View, StyleSheet, Alert} from 'react-native';
 import Counter from '../shared/component';
 
-export default class DefaultState extends Component {
-  state = {
-    count: 0,
-  };
+const DefaultState = () => {
+  const [count, setCount] = useState(0);
 
-  increment = () => this.setState({count: this.state.count + 1});
+  const increment = () => setCount(count + 1);
 
-  decrement = () => this.setState({count: this.state.count - 1});
+  const decrement = () => setCount(count - 1);
+  return (
+    <>
+      <ShowStateValue count={count} />
+      <View style={styles.container}>
+        <Counter increment={increment} decrement={decrement}>
+          <Text>{count}</Text>
+        </Counter>
+      </View>
+    </>
+  );
+};
 
-  render() {
-    Alert.alert('renderizou!');
-    return (
-      <>
-        <View style={styles.container}>
-          <Counter increment={this.increment} decrement={this.decrement}>
-            <Text>{this.state.count}</Text>
-          </Counter>
-        </View>
-      </>
-    );
-  }
-}
+const ShowStateValue = (props) => {
+  Alert.alert('renderizou!', 'show state');
+  return <Text>{props.count}</Text>;
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -33,3 +33,5 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
 });
+
+export default DefaultState;

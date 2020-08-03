@@ -1,19 +1,34 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, Alert} from 'react-native';
 import Counter from '../shared/component';
-import {CounterStore} from './store';
-import { observer, inject } from 'mobx-react/native';
+// imports inject and observer from 'mobx-react':
+import {inject, observer} from 'mobx-react';
 
-const store = new CounterStore();
+import {Provider} from 'mobx-react';
+import CounterMobxStore from './Mobx/store';
 
-
-const Mobx = () => {
+const Mobx = (props) => {
+  Alert.alert('Renderizou', 'Mobx');
+  const {count, increment, decrement} = props.store;
   return (
     <View style={styles.container}>
-      <Counter increment={store.increment} decrement={store.decrement}>
-        <Text>{store.count}</Text>
+      <Counter increment={increment} decrement={decrement}>
+        <Text>{count}</Text>
       </Counter>
     </View>
+  );
+};
+
+const MobxRender = (props) => {
+  const {count} = props.store;
+  Alert.alert('Renderizou', 'MobxRender');
+  return (
+    <>
+      <Provider store={CounterMobxStore}>
+        <Text>Result count: `${count}`</Text>
+        <Mobx />
+      </Provider>
+    </>
   );
 };
 
@@ -26,4 +41,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Mobx;
+// inject Store as props to Mobx and make it observe changes in Store
+export default inject('store')(observer(MobxRender));

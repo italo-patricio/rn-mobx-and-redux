@@ -1,12 +1,15 @@
-import {observable, decorate} from 'mobx';
+import {observable, decorate, action} from 'mobx';
 
-export class CounterStore {
+class CounterMobxStore {
   count = 0;
-
   increment = () => (this.count += 1);
   decrement = () => (this.count -= 1);
 }
 
-decorate(CounterStore, {
+decorate(CounterMobxStore, {
   count: observable,
+  increment: action,
+  decrement: action,
 });
+
+export default new CounterMobxStore();
